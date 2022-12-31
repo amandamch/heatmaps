@@ -1,0 +1,95 @@
+footer
+{
+    font-size: small;
+    text-align: center;
+    color: #2C4251;
+    background-color: #EEF1EF;
+    padding-top: 20px;
+    padding-bottom: 25px;
+}
+
+#a-footer
+{
+    color: #7D98A1;
+    text-decoration: none;
+}
+
+#a-footer:hover
+{
+    color: #2C4251;
+    text-decoration: none;
+}
+
+.container-fluid
+{
+    background-color: #7D98A1;
+    color: #2C4251;
+}
+
+.display-5
+{
+    font-family: 'Abhaya Libre';
+    color: #7D98A1;
+    margin-top: 20px;
+    margin-left: 2%;
+}
+
+#main-header
+{
+    background-color: #EEF1EF;
+}
+
+.accordion-button:not(.collapsed){
+    color: #2C4251;
+    background-color: #EEF1EF;
+}
+
+.form-control{
+    width: 500px;
+}
+
+.form-aligned-div{
+    text-align: center;
+}
+
+#formFileLg{
+    display: inline-block;
+}
+
+.btn-primary{
+    background-color: #7D98A1;
+    border-color: #7D98A1;
+    display: inline-block;
+    color: #fff
+}
+
+.btn-primary:hover{
+    background-color: #2C4251;
+    border-color: #2C4251;
+}
+
+#mapResult{
+    height: 400px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#mapResult:empty{
+    display: none;
+}
+
+h2{
+    text-align: center;
+    color: #2C4251;
+}
+
+h4{
+    text-align: center;
+    color: #2C4251;
+}
+
+p{
+    text-align: center;
+    color: #2C4251;
+}

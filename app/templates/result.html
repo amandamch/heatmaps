@@ -1,0 +1,15 @@
+{% extends "layout.html"%}
+{% block title %}Result | {% endblock %}
+{% block main %}
+<br>
+<p>Your pitch is {{closestDistance}} by {{longSideDistance}} metres</p>
+<p>To get the data into a numpy array, you need to rotate the data by {{transformAngle}} radians, or {{angles}} degrees.</p>
+<p>The origin of the rotation is {{origin}}</p>
+<br>
+<h3>Why does this page not have a completed heatmap?</h3>
+<p>That's the next step. At the moment, I am of the belief that the number of new things learned here, such as 
+    asynchronous javascript, google maps API, webpack bundling (with Flask!) and doing trig with downloaded python packages, is sufficient to meet the requirements 
+    of the CS50 final project. This will get expanded into a personal project, where I will use numpy and downloaded tcx/gpx packages 
+    to iterate through the data and transform point by point to display a heatmap, but there is enough here.
+</p>
+{% endblock %}

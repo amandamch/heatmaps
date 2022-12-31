@@ -1,0 +1,77 @@
+{% extends "layout.html"%}
+{% block title %}{% endblock %}
+
+{% block main %}
+    <br>
+    <h2>Step 1: Upload a File and Draw Pitch Boundaries</h2>
+    <p>The map will appear below: draw pitch boundaries by clicking on the four corners of your pitch, ending at the try lines.</p>
+    <p>If you need to edit your shape, drag the <b>corners</b> of the rectangle- dragging a middle marker turns your pitch into a pentagon!</p>
+    <br>
+    <form action="/result" method="POST" id="mapData" enctype="multipart/form-data">
+        <div class="form-aligned-div">
+            <label for="formFileLg" class="form-label" id="gpxFile">Upload a .gpx or .tcx file</label>
+            <br>
+            <input class="form-control form-control-lg" id="formFileLg" name="file" type="file" accept=".gpx, .tcx">
+        </div>
+    <br>
+    <div id="mapResult"></div>
+    <br>
+      <input id="pitchCoords" type="text" name="pitchCoords" hidden>
+      <div class="form-aligned-div">
+        <button type="submit" class="btn btn-primary btn-submit" id="confirmButton">Show me my heatmap!</button>
+      </div>
+    </form>
+    <br>
+    
+    <br>
+    <div class="accordion" id="accordionPanelsStayOpen">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              How do I get a .gpx or .tcx file of my workout?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body">
+              <strong>Strava:</strong>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+              How does the Heatmap Generator work?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+            <div class="accordion-body">
+              magic
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+              Why is this tool rugby-specific?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+            <div class="accordion-body">
+              It's not :)
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                Why does this not work on mobile?
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+              <div class="accordion-body">
+                data innit
+              </div>
+            </div>
+          </div>
+      </div>
+{% endblock %}
