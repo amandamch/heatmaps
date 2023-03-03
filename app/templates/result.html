@@ -3,6 +3,8 @@
 {% block main %}
 <br>
 <p>Here's your heatmap! You can download it by pressing the button beneath</p>
+<p>Please note that the maximum speed metric may be incredibly large for TCX files: this is to do with the way the TCX reader factors in GPS recalibration, which can make it seem like you have changed your location really rapidly.</p>
+<p>The GPX file reader factors out the top 10% of speeds to avoid this error, and the TCX reader is under constant improvement to avoid this in future.</p>
 <center><img src={{ data }} height="800"></center>
 <div class="form-aligned-div">
     <a href={{ data }} download="heatmap">
