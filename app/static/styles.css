@@ -68,6 +68,16 @@ footer
     border-color: #2C4251;
 }
 
+.row{
+    display: flex;
+}
+
+
+.column{
+    flex: 33.3%;
+    padding: 5px;
+}
+
 #mapResult{
     height: 400px;
     width: 80%;

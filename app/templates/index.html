@@ -33,7 +33,55 @@
           </h2>
           <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
             <div class="accordion-body">
-              <strong>Strava:</strong>
+                <strong>Strava:</strong> Log into <a href="www.strava.com">Strava for desktop</a> and navigate to your profile. Scroll down, and click on the title of the activity that you'd like to export.
+                This should load the activity in more detail. Look for the GPX download button on the map on this page, and click it to download your file. Strava is the recommended way to access your data, 
+                as you can sync from different devices (which have lots of different download methods) to Strava. You can also record GPS data on your phone using Strava, meaning you don't need to have any extra 
+                tech to access the heatmaps.
+                <br>
+              <div class="row">
+                <div class="column">
+                  <img src="static/images/StravaProfile.PNG" alt="Strava Profile" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="static/images/ActivityExample.PNG" alt="Activity Example" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="static/images/GPXButton.PNG" alt="GPX Download Button" style="width:100%">
+                </div>
+              </div>
+              <br>
+              <strong>Fitbit:</strong> Log into your <a href="www.fitbit.com">Fitbit account</a>, and navigate to "Dashboard". Once there, change the tab to "Log", and look for "Activities". You should have a list of all exercises you've recorded.
+               Once you've found the activity you want to download, click "View Details". On the top right of the map, there should be an icon with three dots. Click it, and click "Download TCX".
+               <br>
+               <div class="row">
+                <div class="column">
+                  <img src="static/images/FitbitLogin.PNG" alt="Fitbit Profile" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="static/images/FitbitLogs.PNG" alt="Fitbit Activity Logs" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="static/images/FitbitExport.PNG" alt="TCX Download Button" style="width:100%">
+                </div>
+              </div>
+              <br>
+              <strong>Garmin:</strong> Log into your <a href="https://connect.garmin.com/">Garmin Connect account</a>, and select "Activities" from the navigation bar on the left. Select "All Activities", 
+              and select the name of the activity that you would like to export. Click the settings gear in the top right corner, and select the export format you would like. Please note that the heatmap generator 
+              only accepts GPX and TCX files.
+              <br>
+              <div class="row">
+                <div class="column">
+                  <img src="static/images/GarminDashboard.PNG" alt="Fitbit Profile" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="static/images/GarminActivities.PNG" alt="Fitbit Activity Logs" style="width:100%">
+                </div>
+                <div class="column">
+                  <img src="static/images/GarminDownload.PNG" alt="TCX Download Button" style="width:100%">
+                </div>
+              </div>
+              <br>
+              This list is obviously non-exhaustive, so please <a href="mailto:amanda.mchugh@hotmail.co.uk">get in touch</a> if you have extracted your data from another device.
             </div>
           </div>
         </div>
@@ -45,7 +93,25 @@
           </h2>
           <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
             <div class="accordion-body">
-              magic
+              The first step after you upload your file is that the webpage sees you've done this, and reads through the file you've given it. All it does at this stage is convert it to a format called GeoJSON, 
+              which is a data format that the Google Maps API can read. This then automatically displays your data on a Google Map that magically appears below the upload button, and shows it like a scribble on the map. 
+              It's not done anything to the data yet, but it sets up a drawing tool that lets you draw the four corners of the pitch, storing that data and updating it whenever you click on a new point,
+              or drag one of the points around when the shape is complete. Once you click "Show me my heatmap!", it takes the coordinates you've drawn, and looks at how far away each coordinate is from the 
+              southernmost one, to figure out which way round the pitch is orientated. It stores the values of each, so that we can calculate the length and width of the pitch for later. Once it's done that, 
+              we just use a little bit of trigonometry to figure out how much to rotate the pitch corners and GPS data by. The coordinates from the GPX/TCX files are read by the computer with the help of tools that 
+              pull coordinates out of the files, and rotated using the same function that the corners are rotated by. Using two graphing libraries, Matplotlib (which does most of the heavy lifting) and 
+              Seaborn (which turns the data into a heatmap using something called a Kernel Density Estimate), we can then show the map data on a graph that looks like a rugby pitch, with pitch lines that 
+              get added/subtracted depending on how big the pitch is in real life. The tools that pulled the coordinates out of the files so we could rotate the data also pull out useful information such as 
+              total time, total distance, and max/average speed, so all that information (plus the pitch dimensions) gets put into a text box to the right of the graph, and all that gets converted into a .png image file.
+              <br>
+              <br>
+              <strong>Your data does not get stored by this application!!</strong> The file you upload is put into a temporary directory that gets destroyed every time the app is re-run, and isn't visible to me or 
+              anyone else on the internet. Same with the graph: the image is created by the program, and saved in what's called a buffer, and it creates a code that tells the computer what the image needs to look like 
+              which it then decodes to show you the picture. The image itself is not stored anywhere that a person could access, since the buffer is destroyed each time the program is completed.
+              <br>
+              <br>
+              This explanation is as simple as I could make it while keeping details in, but if you'd like to know more, or see how I did it in more detail, <a href="https://github.com/amandamch/heatmaps"> 
+                check out the project on Github!</a>
             </div>
           </div>
         </div>
@@ -57,7 +123,10 @@
           </h2>
           <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
             <div class="accordion-body">
-              It's not :)
+              Technically, it's not, since you could make a heatmap out of whatever GPS data you wanted. It is only rugby-specific in the sense that the lines that are drawn on the graph match up to the lines 
+              on a rugby pitch. The reason rugby was picked is effectively just because I am interested in the ways that data can be used to optimise sports performance, and having come from a rowing background 
+              (which can be very easily captured and assessed using GPS data from a sports watch), I felt that there was no solution for rugby that was truly accessible if I wanted to see how I moved on a pitch. There are still hardware 
+              issues that need to be figured, such as where in a grassroots contact game you could fit a small GPS device like a fitbit, but the tool is useful for practice sessions playing touch.
             </div>
           </div>
         </div>
@@ -69,7 +138,10 @@
             </h2>
             <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
               <div class="accordion-body">
-                data innit
+                Mobile apps for sports watches and other devices don't allow export of GPX/TCX data on mobile! It makes sense, since your phone doesn't really have a built-in way of handling this kind of data 
+                without the data being trapped in an app, and it's a lot harder to navigate around your phone's internal file system to find files that aren't supported by any of the native apps. Also, building a 
+                tool like this to run on mobile as well as desktop is a whole other kettle of fish in terms of user interaction (particularly with tools like the Google Maps API), so perhaps that's a task for 
+                another day!
               </div>
             </div>
           </div>

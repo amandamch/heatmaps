@@ -226,8 +226,6 @@ def result():
         plt.savefig(buf, dpi='figure', format='png', edgecolor='#2C4251')
         data = base64.b64encode(buf.getbuffer()).decode("ascii")
 
-        # TODO: Display top speed, average speed, moving time and elapsed time in the information next to the graph
-
         return render_template("result.html", data=f'data:image/png;base64,{data}')
     else:
         print("Page accessed incorrectly; returning home")
