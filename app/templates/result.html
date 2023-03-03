@@ -2,5 +2,12 @@
 {% block title %}Result | {% endblock %}
 {% block main %}
 <br>
-<p>Still cooking</p>
+<p>Here's your heatmap! You can download it by pressing the button beneath</p>
+<center><img src={{ data }} height="800"></center>
+<div class="form-aligned-div">
+    <a href={{ data }} download="heatmap">
+    <button type="submit" class="btn btn-primary btn-submit">Download Image</button>
+    </a>
+  </div>
+<br>
 {% endblock %}

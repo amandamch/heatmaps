@@ -5,12 +5,14 @@ import geopy, geopy.distance
 import gpxpy, gpxpy.gpx
 from tcxreader.tcxreader import TCXReader
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
 from flask import Flask, render_template, request, abort
 from asset import Asset
 from werkzeug.utils import secure_filename
 import tempfile
 import seaborn as sns
+import datetime
+import base64
+from io import BytesIO
 
 UPLOAD_FOLDER = tempfile.mkdtemp()
 app = Flask(__name__)
@@ -165,8 +167,7 @@ def result():
         farSide = oneMetre * closestDistance
         maxRight = origin[0] + farSide
 
-        fig, axs = plt.subplots(1, 2)
-        gs = gridspec.GridSpec(1, 2, height_ratios=[1])
+        fig, axs = plt.subplots(1, 2, height_ratios=[1])
         fig.subplots_adjust(wspace=0)
 
         xData = np.array(xData)
@@ -203,16 +204,31 @@ def result():
             axs[0].axhline(y=(maxAxisBottom[1] + twenty2), xmin=0, xmax=1, c='w')
             axs[0].axhline(y=(maxAxisTop[1] - twenty2), xmin=0, xmax=1, c='w')
 
-        axs[1].axis([0, 10, 0, 24]) # text at 4/8/12/16/20
-        #axs[1].axis('off') - will do this once I have the text in and aligned!
-        axs[1].text(2, 20, 'text', color='red')
+        axs[1].set_xlim(origin[0], maxRight)
+        axs[1].set_ylim(maxAxisBottom[1], maxAxisTop[1])
+        axs[1].axis('off')
         axs[1].set_box_aspect(1.5) # 1.5 times taller than it is wide, so we always have space for the text
 
-        plt.show()
+        # then start with the text- we want 5 pieces of text, so we want to create our label font and divide the space into 6 lengthwise and then create an indent
+        font = {'family':'sans-serif', 'color':'#2C4251', 'size':10}
+        oneSixth = float(maxAxisTop[1] - maxAxisBottom[1]) / 6
+        indent = origin[0] + (float(maxRight - origin[0]) / 10)
+
+        axs[1].text(indent, (maxAxisTop[1] - oneSixth), 'Pitch Dimensions: {length:.2f}m x {width:.2f}m'.format(length=longSideDistance, width=closestDistance), fontdict=font)
+        axs[1].text(indent, (maxAxisTop[1] - 2*oneSixth), 'Elapsed Time: {time}'.format(time=datetime.timedelta(seconds=totalTime)), fontdict=font)
+        axs[1].text(indent, (maxAxisTop[1] - 3*oneSixth), 'Total Distance: {dist:.0f}m'.format(dist=totalDist), fontdict=font)
+        axs[1].text(indent, (maxAxisTop[1] - 4*oneSixth), 'Average Speed: {speed:.2f}m/s'.format(speed=avgSpeed), fontdict=font)
+        axs[1].text(indent, (maxAxisTop[1] - 5*oneSixth), 'Max Speed: {speed:.2f}m/s'.format(speed=maxSpeed), fontdict=font)
+
+        fig.tight_layout()
+
+        buf = BytesIO()
+        plt.savefig(buf, dpi='figure', format='png', edgecolor='#2C4251')
+        data = base64.b64encode(buf.getbuffer()).decode("ascii")
 
         # TODO: Display top speed, average speed, moving time and elapsed time in the information next to the graph
 
-        return render_template("result.html")
+        return render_template("result.html", data=f'data:image/png;base64,{data}')
     else:
         print("Page accessed incorrectly; returning home")
         return render_template("index.html")
