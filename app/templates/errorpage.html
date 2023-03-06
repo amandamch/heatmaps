@@ -1,0 +1,18 @@
+{% extends "layout.html"%}
+{% block title %}:~( |{% endblock %}
+
+{% block main %}
+<br>
+<h2>
+    Something's gone wrong :(
+</h2>
+<p>It looks like the app has run into an error.</p>
+<p>It seems that {{ undefined }}. Sorry about that!</p>
+<p>If you're seeing this and you don't think you should be, then <a href="mailto:amanda.mchugh@hotmail.co.uk">get in touch</a>.</p>
+<form action="/">
+    <div class="form-aligned-div">
+        <button type="submit" class="btn btn-primary btn-submit">Restart</button>
+      </div>
+</form>
+<br>
+{% endblock %}
